@@ -42,16 +42,16 @@ public class User {
 	
 	
 	@OneToMany(mappedBy="user")
-	Set<Ticket> ticket=new HashSet<>();
+	private Set<Ticket> ticket=new HashSet<>();
 	
 	@Range(min=1)
-	private int age;
+	private Integer age;
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 

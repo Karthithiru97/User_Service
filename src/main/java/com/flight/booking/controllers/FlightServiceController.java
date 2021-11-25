@@ -2,12 +2,13 @@ package com.flight.booking.controllers;
 
 
 import java.util.List;
-
-
-
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,19 +40,16 @@ public class FlightServiceController {
 		return flightservice.save(flight);
 	}
 	
-	@GetMapping("/flight/search")
+	//anyone can search for flight
+	@PostMapping("/flight/search")
     List<Flight> search()
     {
 	  return flightservice.findAll();
     }
 
-	/*@GetMapping("/user")
-	  FlightUser finduser()
-	  {
-		  return userservice.find(1).get();
-	  }*/
-	@PostMapping("/bookticket")
-	//@PreAuthorize("hasRole('USER')")
+	
+	@PostMapping("/flight/bookticket")
+	@PreAuthorize("hasRole('USER')")
 	Integer bookTicket(@RequestBody Ticket ticket)
 	{
 		Integer pnr=ticketservice.save(ticket);
@@ -59,10 +57,28 @@ public class FlightServiceController {
 	}
 	
 	@GetMapping("/flight/ticket/{pnr}")
+	@PreAuthorize("hasRole('USER')")
 	public Ticket findticketsbyPNR(@PathVariable("pnr") int pnr)
 	{
 		return ticketservice.findticketsbyPNR(pnr);
 		
+	}
+
+	@GetMapping("/flight/tickets/{email}")
+	//@PreAuthorize("hasRole('USER')")
+	public List<Ticket> findticketsbyemail(@PathVariable("email") String email)
+	{
+	
+		List<Ticket> tickets=ticketservice.findticketsbyemail(email);
+		return tickets;
+	}
+	
+	@DeleteMapping("/flight/cancel/{pnr}")
+	@PreAuthorize("hasRole('USER')")
+	public BodyBuilder cancelTicket(@PathVariable("pnr") Integer pnr)
+	{
+		ticketservice.cancelTicket(pnr);
+	return ResponseEntity.ok();
 	}
 	
 	

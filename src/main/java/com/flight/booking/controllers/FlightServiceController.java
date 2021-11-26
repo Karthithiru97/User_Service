@@ -2,7 +2,7 @@ package com.flight.booking.controllers;
 
 
 import java.util.List;
-import java.util.Objects;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ public class FlightServiceController {
 	@Autowired
 	TicketService ticketservice;
 	
-	
+	//to add a airline. only the admins are allowed to add the airline
 	@PostMapping("/airlines")
 	@PreAuthorize("hasRole('ADMIN')")
 	Integer createAirlines(@RequestBody Flight flight) {
@@ -41,13 +41,13 @@ public class FlightServiceController {
 	}
 	
 	//anyone can search for flight
-	@PostMapping("/flight/search")
+	@GetMapping(value="/flight/search",produces={"application/json"})
     List<Flight> search()
     {
 	  return flightservice.findAll();
     }
 
-	
+	//to book a ticket
 	@PostMapping("/flight/bookticket")
 	@PreAuthorize("hasRole('USER')")
 	Integer bookTicket(@RequestBody Ticket ticket)
@@ -63,9 +63,9 @@ public class FlightServiceController {
 		return ticketservice.findticketsbyPNR(pnr);
 		
 	}
-
+  //to get a tickets that are booked with a single email id
 	@GetMapping("/flight/tickets/{email}")
-	//@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('USER')")
 	public List<Ticket> findticketsbyemail(@PathVariable("email") String email)
 	{
 	
@@ -73,6 +73,7 @@ public class FlightServiceController {
 		return tickets;
 	}
 	
+	//to cancel the booked ticket only the users are allowed to cancel
 	@DeleteMapping("/flight/cancel/{pnr}")
 	@PreAuthorize("hasRole('USER')")
 	public BodyBuilder cancelTicket(@PathVariable("pnr") Integer pnr)

@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Range;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 
 
@@ -32,7 +32,6 @@ public class Ticket {
 	
 	@ManyToOne(fetch = FetchType.LAZY,optional=false)
 	@JoinColumn(name="flight_id",nullable = false)
-	@JsonBackReference
 	private Flight flight;
 	
 	public User getUser() {
@@ -56,7 +55,6 @@ public class Ticket {
 
 	@ManyToOne(fetch = FetchType.LAZY,optional=false)
 	@JoinColumn(name="user_id",nullable = false)
-	@JsonBackReference
 	private User user;
 	
 	@Enumerated(EnumType.STRING)

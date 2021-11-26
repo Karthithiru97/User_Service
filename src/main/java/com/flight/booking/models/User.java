@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(	name = "users", 
 		uniqueConstraints = { 
@@ -42,6 +44,7 @@ public class User {
 	
 	
 	@OneToMany(mappedBy="user")
+	@JsonIgnore
 	private Set<Ticket> ticket=new HashSet<>();
 	
 	@Range(min=1)

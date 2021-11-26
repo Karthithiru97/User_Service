@@ -1,17 +1,17 @@
 package com.flight.booking.repository;
 
 import java.util.List;
-import java.util.Objects;
+
 
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.http.ResponseEntity;
+
 
 import com.flight.booking.models.Ticket;
-import com.flight.booking.models.User;
+
 
 
 

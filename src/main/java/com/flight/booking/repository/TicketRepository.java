@@ -24,7 +24,7 @@ public interface TicketRepository extends JpaRepository<Ticket,Integer>{
 	
 	
 	@Query(value="SELECT * FROM TICKET WHERE USER_ID IN(SELECT ID FROM USERS WHERE EMAIL=?1)",nativeQuery=true)
-	List<Ticket> findallbyMailId(String email);
+	List<Ticket> findbyUserandEmail(String email);
 
 	@Transactional
 	@Modifying

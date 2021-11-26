@@ -61,7 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/api/test/**").permitAll()
 			.antMatchers("/search").permitAll()
 			.antMatchers("/flight/ticket/**").permitAll()
-			.antMatchers("/bookticket/").permitAll().
+			.antMatchers("/api-docs/swagger-config").permitAll().
+			antMatchers("/**").permitAll().
+			antMatchers("/swagger-ui/**").permitAll().
 		antMatchers("/flight/tickets/**").permitAll().
 			anyRequest().authenticated();
 

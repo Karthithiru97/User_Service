@@ -3,6 +3,8 @@ package com.flight.booking.security.services;
 import java.util.List;
 import java.util.Objects;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import com.flight.booking.repository.UserRepository;
 
 
 @Service
+@Transactional
 public class TicketService {
 	@Autowired
 	TicketRepository ticketrepo;
@@ -43,7 +46,7 @@ public class TicketService {
 	public List<Ticket> findticketsbyemail(String email) {
 		// TODO Auto-generated method stub
 		List<Ticket> tickets=
-				ticketrepo.findallbyMailId(email);
+				ticketrepo.findbyUserandEmail(email);
 		return tickets;
 	}
 
